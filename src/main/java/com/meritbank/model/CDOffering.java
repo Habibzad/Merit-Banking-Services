@@ -19,7 +19,7 @@ public class CDOffering {
 	private static int nextID = 1;
 //	Instance Variables
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	private double interestRate;
 	private int term;

@@ -27,4 +27,10 @@ public class MyUserDetailsService implements UserDetailsService {
 
         return user.map(MyUserDetails::new).get();
     }
+    
+    //Added on June 3 11:50 
+    public Optional<User> getUserByUserName(String userName) {
+    	Optional<User> user = userRepository.findByUserName(userName);
+    	return user;
+    }
 }

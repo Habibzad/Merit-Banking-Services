@@ -12,4 +12,8 @@ public interface CDOfferingService {
 
 	public List<CDOffering> getCDOfferings();
 	
+	public String clearCDOffering();
+	
+	public String deleteCDOffering(CDOffering cdOffering);
+	
 }

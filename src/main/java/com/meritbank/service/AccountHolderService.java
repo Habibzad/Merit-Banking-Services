@@ -3,6 +3,7 @@ package com.meritbank.service;
 import java.util.List;
 
 import com.meritbank.exceptions.InvalidArgumentException;
+import com.meritbank.exceptions.NoResourceFoundException;
 import com.meritbank.model.AccountHolder;
 import com.meritbank.model.AccountHoldersContactDetails;
 import com.meritbank.model.CDAccount;
@@ -17,4 +18,6 @@ public interface AccountHolderService {
 	public List<SavingsAccount> getSavingsAccounts(int id);
 	public List<CDAccount> getCDAccounts(int id);
 	public AccountHoldersContactDetails addContactDetails(int id, AccountHoldersContactDetails contactDetails);
+	public AccountHolder updateAccountHolder(AccountHolder accountHolder);
+	public AccountHolder deleteAccountHolder(AccountHolder accountHolder) throws NoResourceFoundException;
 }

@@ -1,5 +1,7 @@
 package com.meritbank.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +24,6 @@ import com.meritbank.security.model.AuthenticationResponse;
 import com.meritbank.service.MyUserDetailsService;
 import com.meritbank.service.UserService;
 
-
 @RestController
 @RequestMapping("/api")
 @CrossOrigin
@@ -36,7 +37,7 @@ public class MainController {
 
 	@Autowired
 	private MyUserDetailsService userDetailsService;
-	
+
 	@Autowired
 	private UserService userService;
 
@@ -58,15 +59,44 @@ public class MainController {
 
 		final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
 
-		final String jwt = jwtTokenUtil.generateToken(userDetails);
+		final String token = jwtTokenUtil.generateToken(userDetails);
 
-		return ResponseEntity.ok(new AuthenticationResponse(jwt));
+		UserInfoDTO dto = new UserInfoDTO(token, userDetails.getAuthorities().toString());
+
+		return ResponseEntity.ok(dto);
+//		return ResponseEntity.ok(new AuthenticationResponse(jwt));
 	}
-	
+
+	public static class UserInfoDTO {
+		public UserInfoDTO(String jwt, String roles) {
+			this.jwt = jwt;
+			this.roles = roles;
+		}
+
+		private String jwt;
+		private String roles;
+
+		public String getJwt() {
+			return jwt;
+		}
+
+		public void setJwt(String jwt) {
+			this.jwt = jwt;
+		}
+
+		public String getRoles() {
+			return roles;
+		}
+
+		public void setRoles(String roles) {
+			this.roles = roles;
+		}
+
+	}
+
 	@PostMapping("/authenticate/createuser")
 	@ResponseStatus(HttpStatus.CREATED)
 	public User addUser(@RequestBody User user) {
 		return userService.addUser(user);
 	}
 }
-

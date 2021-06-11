@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,8 +21,8 @@ import com.meritbank.exceptions.NotAuthorizedException;
 import com.meritbank.model.CDOffering;
 import com.meritbank.service.CDOfferingService;
 
-
 @RestController
+@CrossOrigin
 @RequestMapping("/api")
 public class CDOfferingController {
 	Logger logs = LoggerFactory.getLogger(BankAccountsController.class);
@@ -28,6 +30,11 @@ public class CDOfferingController {
 	@Autowired
 	private CDOfferingService cdOfferingService;
 
+	@GetMapping("/CDOfferings")
+	public List<CDOffering> getCDOfferings() {
+		return cdOfferingService.getCDOfferings();
+	}
+	
 	@PostMapping("/CDOfferings")
 	@ResponseStatus(HttpStatus.CREATED)
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -35,9 +42,18 @@ public class CDOfferingController {
 		return cdOfferingService.addCDOffering(cdOffering);
 	}
 
-	@GetMapping("/CDOfferings")
-	public List<CDOffering> getCDOfferings() {
-		return cdOfferingService.getCDOfferings();
+	@ResponseStatus(HttpStatus.ACCEPTED)
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@DeleteMapping("/CDOfferings")
+	public String clearCDOfferings() {
+		return cdOfferingService.clearCDOffering();
+	}
+	
+	@ResponseStatus(HttpStatus.ACCEPTED)
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@DeleteMapping("/CDOffering")
+	public String deleteCDOfferings(@RequestBody CDOffering cdOffering) {
+		return cdOfferingService.deleteCDOffering(cdOffering);
 	}
 }
 

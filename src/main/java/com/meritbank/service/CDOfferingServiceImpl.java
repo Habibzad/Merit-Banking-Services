@@ -27,5 +27,18 @@ public class CDOfferingServiceImpl implements CDOfferingService {
 	public List<CDOffering> getCDOfferings() {
 		return cdOfferingRepo.findAll();
 	}
+
+	@Override
+	public String clearCDOffering() {
+		cdOfferingRepo.deleteAll();
+		return "CD Offerings Cleared";
+	}
+
+	@Override
+	public String deleteCDOffering(CDOffering cdOffering) {
+		
+		cdOfferingRepo.delete(cdOffering);
+		return "CD Offerings deleted";
+	}
 }
 

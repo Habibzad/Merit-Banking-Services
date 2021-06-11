@@ -24,7 +24,7 @@ public class AccountHolder {
 
 //	Instance Variables
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	@NotBlank(message = "First Name cannot be blank")
 	@NotNull(message = "First name cannot be blank")
@@ -37,11 +37,11 @@ public class AccountHolder {
 	@NotNull(message = "SSN cannot be blank")
 	private String ssn;
 
-	@OneToMany(mappedBy = "accountHolder")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "accountHolder")
 	private List<CheckingAccount> checkingAccounts = new ArrayList<>();
-	@OneToMany(mappedBy = "accountHolder")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "accountHolder")
 	private List<SavingsAccount> savingsAccounts = new ArrayList<>();
-	@OneToMany(mappedBy = "accountHolder")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "accountHolder")
 	private List<CDAccount> cdAccounts = new ArrayList<>();
 
 	private double combinedBalance;
@@ -50,7 +50,7 @@ public class AccountHolder {
 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private AccountHoldersContactDetails accountHoldersContactDetails;
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private User user;

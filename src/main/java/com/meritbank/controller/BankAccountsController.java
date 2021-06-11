@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -52,6 +53,13 @@ public class BankAccountsController {
 	public List<CheckingAccount> getCheckingAccounts(@PathVariable("id") int id) throws InvalidArgumentException{
 		return accountHolderService.getCheckingAccounts(id);
 	}
+	
+//	@DeleteMapping("/accountholders/{id}/checkingAccounts") 
+//	@PreAuthorize("hasRole('ROLE_ADMIN')")
+//	public List<CheckingAccount> deleteCheckingAccounts(@PathVariable("id") int id, @RequestBody CheckingAccount checkingAccount) throws InvalidArgumentException{
+//		CheckingAccount checkAcc = checkingAccountRepo.getById(checkingAccount.getId());
+//		return accountHolderService.;
+//	}
 
 	@PostMapping("/accountholders/{id}/savingsAccounts")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")

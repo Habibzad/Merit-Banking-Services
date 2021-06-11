@@ -93,4 +93,11 @@ public class AccountsServiceImpl implements AccountsService {
 		throw new NoSuchAccountException("No such account found");
 	}
 
+	@Override
+	public CheckingAccount deleteCheckingAccount(int id, CheckingAccount checkingAccount)
+			throws NoSuchAccountException {
+		CheckingAccount checAcc = checkingAccountRepo.getById(null);
+		return null;
+	}
+
 }

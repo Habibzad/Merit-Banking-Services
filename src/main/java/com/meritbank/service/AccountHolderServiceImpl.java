@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.meritbank.exceptions.InvalidArgumentException;
+import com.meritbank.exceptions.NoResourceFoundException;
 import com.meritbank.model.AccountHolder;
 import com.meritbank.model.AccountHoldersContactDetails;
 import com.meritbank.model.CDAccount;
@@ -36,13 +37,13 @@ public class AccountHolderServiceImpl implements AccountHolderService {
 
 	@Override
 	public AccountHolder getAccountHolder(int id) {
-		return accountHolderRepo.getOne(id);
+		return accountHolderRepo.getById(id);
 	}
 
 	@Override
 	public List<CheckingAccount> getCheckingAccounts(int id) throws InvalidArgumentException{
 		if(accountHolderRepo.existsById(id)) {
-			AccountHolder accountHolder = accountHolderRepo.getOne(id);
+			AccountHolder accountHolder = accountHolderRepo.getById(id);
 			return accountHolder.getCheckingAccounts();
 		}
 		throw new InvalidArgumentException("No such account holder exist");
@@ -50,23 +51,38 @@ public class AccountHolderServiceImpl implements AccountHolderService {
 
 	@Override
 	public List<SavingsAccount> getSavingsAccounts(int id) {
-		AccountHolder accountHolder = accountHolderRepo.getOne(id);
+		AccountHolder accountHolder = accountHolderRepo.getById(id);
 		return accountHolder.getSavingsAccounts();
 	}
 
 	@Override
 	public List<CDAccount> getCDAccounts(int id) {
-		AccountHolder accountHolder = accountHolderRepo.getOne(id);
+		AccountHolder accountHolder = accountHolderRepo.getById(id);
 		return accountHolder.getCdAccounts();
 	}
 
 	@Override
 	public AccountHoldersContactDetails addContactDetails(int id, AccountHoldersContactDetails contactDetails) {
-		AccountHolder accountHolder = accountHolderRepo.getOne(id);
+		AccountHolder accountHolder = accountHolderRepo.getById(id);
 		contactDetails.setAccountHolder(accountHolder);
 		contactDetailsRepo.save(contactDetails);
 		return contactDetails;
 	}
-	
 
+	@Override
+	public AccountHolder updateAccountHolder(AccountHolder accountHolder) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public AccountHolder deleteAccountHolder(AccountHolder accountHolder) throws NoResourceFoundException{
+		AccountHolder ach = accountHolderRepo.getById(accountHolder.getId());
+		if(ach!=null) {
+			accountHolderRepo.delete(ach);
+			return accountHolder;
+		} else {
+			throw new NoResourceFoundException("Account Does Not Exist");
+		}
+	}
 }

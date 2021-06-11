@@ -8,9 +8,9 @@ import javax.persistence.Id;
 
 @Entity
 public class CheckingAccount extends BankAccount {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	private int id;
 	
 //	Default constructor	
 	public CheckingAccount() {
@@ -20,4 +20,5 @@ public class CheckingAccount extends BankAccount {
 	public CheckingAccount(double balance) {
 		super(balance);
 	}
+
 }

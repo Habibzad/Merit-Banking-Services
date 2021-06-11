@@ -23,4 +23,7 @@ public interface AccountsService {
 			throws NoSuchAccountException, 
 			ExceedsCombinedBalanceLimitException, 
 			InvalidArgumentException;
+	
+	public CheckingAccount deleteCheckingAccount(int id, CheckingAccount checkingAccount) 
+			throws NoSuchAccountException;
 }

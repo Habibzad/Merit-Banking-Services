@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.meritbank.exceptions.NoResourceFoundException;
 import com.meritbank.model.AccountHolder;
 import com.meritbank.model.AccountHoldersContactDetails;
 import com.meritbank.service.AccountHolderService;
@@ -37,6 +39,13 @@ public class AccountHolderController {
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public AccountHolder addAccountHolder(@RequestBody @Valid AccountHolder accountHolder) {
 		return accountHolderService.addAccountHolder(accountHolder);
+	}
+	
+	@DeleteMapping("/accountholders")
+	@ResponseStatus(HttpStatus.ACCEPTED)
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	public AccountHolder deleteAccountHolder(@RequestBody @Valid AccountHolder accountHolder) throws NoResourceFoundException {
+		return accountHolderService.deleteAccountHolder(accountHolder);
 	}
 
 	@GetMapping("/accountholders")
