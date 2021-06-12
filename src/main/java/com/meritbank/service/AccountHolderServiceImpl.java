@@ -8,12 +8,12 @@ import org.springframework.stereotype.Service;
 import com.meritbank.exceptions.InvalidArgumentException;
 import com.meritbank.exceptions.NoResourceFoundException;
 import com.meritbank.model.AccountHolder;
-import com.meritbank.model.AccountHoldersContactDetails;
 import com.meritbank.model.CDAccount;
 import com.meritbank.model.CheckingAccount;
+import com.meritbank.model.ContactDetails;
 import com.meritbank.model.SavingsAccount;
 import com.meritbank.repository.AccountHolderRepo;
-import com.meritbank.repository.AccountHoldersContactDetailsRepo;
+import com.meritbank.repository.ContactDetailsRepo;
 
 
 @Service
@@ -23,7 +23,7 @@ public class AccountHolderServiceImpl implements AccountHolderService {
 	private AccountHolderRepo accountHolderRepo;
 	
 	@Autowired
-	private AccountHoldersContactDetailsRepo contactDetailsRepo;
+	private ContactDetailsRepo contactDetailsRepo;
 
 	@Override
 	public AccountHolder addAccountHolder(AccountHolder accountHolder) {
@@ -62,7 +62,7 @@ public class AccountHolderServiceImpl implements AccountHolderService {
 	}
 
 	@Override
-	public AccountHoldersContactDetails addContactDetails(int id, AccountHoldersContactDetails contactDetails) {
+	public ContactDetails addContactDetails(int id, ContactDetails contactDetails) {
 		AccountHolder accountHolder = accountHolderRepo.getById(id);
 		contactDetails.setAccountHolder(accountHolder);
 		contactDetailsRepo.save(contactDetails);

@@ -7,19 +7,11 @@ import javax.persistence.Id;
 
 @Entity
 public class WithdrawTransaction extends Transaction {
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
-//	private int id;
-	
+
 	WithdrawTransaction(BankAccount targetAccount, double amount) {
+		super();
 		this.targetAccount = targetAccount;
 		this.amount = amount;
-		this.isProcessed = false;
-	}
-
-	@Override
-	public void process() {
 		this.targetAccount.withdraw(amount);
 	}
-
 }

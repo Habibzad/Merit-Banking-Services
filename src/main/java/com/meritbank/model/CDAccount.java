@@ -8,35 +8,26 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
+@Data
+@EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class CDAccount extends BankAccount {
-//	Instance variables
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "cdoffering_id")
-
 	private CDOffering cdOffering;
-
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
-//	private int id;
-
-// 	Default Constructor
-	public CDAccount() {
-	}
-
-//	Parameterized Constructor	
+	
 	public CDAccount(double balance, CDOffering offering) {
 		super(balance);
 		this.cdOffering = offering;
-	}
-
-//	Getters and Setters
-	public CDOffering getCdOffering() {
-		return cdOffering;
-	}
-
-	public void setCdOffering(CDOffering cdOffering) {
-		this.cdOffering = cdOffering;
 	}
 }

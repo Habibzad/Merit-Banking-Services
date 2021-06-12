@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.meritbank.exceptions.NoResourceFoundException;
 import com.meritbank.model.AccountHolder;
-import com.meritbank.model.AccountHoldersContactDetails;
+import com.meritbank.model.ContactDetails;
 import com.meritbank.service.AccountHolderService;
 
 
@@ -62,8 +62,8 @@ public class AccountHolderController {
 
 	@PostMapping("/accountholders/{id}/contactdetails")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	public AccountHoldersContactDetails addDetails(@PathVariable("id") int id,
-			@RequestBody AccountHoldersContactDetails accountDetails) {
+	public ContactDetails addDetails(@PathVariable("id") int id,
+			@RequestBody ContactDetails accountDetails) {
 		return accountHolderService.addContactDetails(id, accountDetails);
 	}
 }
